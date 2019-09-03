@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-project(littlelionman)
+project(amazonia)
 
 set(CMAKE_CXX_STANDARD 11)
 set(TEXTURES_PATH "${CMAKE_SOURCE_DIR}/resources/textures")
@@ -8,14 +8,14 @@ set(TARGET_RESOURCES_PATH "${CMAKE_BINARY_DIR}/resources")
 set(TARGET_SHADERS "${TARGET_RESOURCES_PATH}/shaders")
 set(TARGET_TEXTURES "${TARGET_RESOURCES_PATH}/textures")
 
-add_executable(littlelionman src/main.cpp)
+add_executable(amazonia ${CMAKE_SOURCE_DIR}/src/main.cpp src/Game.h src/Game.cpp src/main.cpp src/Shader.cpp src/Shader.h src/Texture2D.cpp src/Texture2D.h src/ResourceManager.cpp src/ResourceManager.h)
 
 # Including OS include paths. Idk why this is required, but it is.
 include_directories("/usr/local/include")
+include_directories("/opt/local/include")
+include_directories("/opt/local/include/SOIL")
+include_directories("/opt/local/lib")
 include_directories("/usr/local/lib")
-include_directories("/usr/local/include/GL")
-include_directories("/usr/local/include/GLEW")
-include_directories("/usr/local/include/GLFW3")
 
 # Including OS include paths. Idk why this is required, but it is.
 include_directories(
@@ -33,15 +33,15 @@ find_package(GLEW REQUIRED)
 find_package(GLFW3 REQUIRED)
 find_package(glfw3 3.3 REQUIRED)
 
-target_link_libraries(littlelionman "-framework OpenGL")
-target_link_libraries(littlelionman "-framework CoreFoundation")
-target_link_libraries(littlelionman "-framework CoreVideo")
-target_link_libraries(littlelionman "-framework IOKit")
-target_link_libraries(littlelionman "-framework Cocoa")
-target_link_libraries(littlelionman "/usr/local/lib/libSOIL.a")
-target_link_libraries(littlelionman ${OPENGL_LIBRARIES} ${OPENGL_gl_LIBRARY} ${GLM_LIBRARIES} ${GLEW_LIBRARY} ${GLFW3_LIBRARY} glfw)
+target_link_libraries(amazonia "-framework OpenGL")
+target_link_libraries(amazonia "-framework CoreFoundation")
+target_link_libraries(amazonia "-framework CoreVideo")
+target_link_libraries(amazonia "-framework IOKit")
+target_link_libraries(amazonia "-framework Cocoa")
+target_link_libraries(amazonia "/opt/local/lib/libSOIL.a")
+target_link_libraries(amazonia ${OPENGL_LIBRARIES} ${OPENGL_gl_LIBRARY} ${GLM_LIBRARIES} ${GLEW_LIBRARY} ${GLFW3_LIBRARY} glfw)
 
-target_include_directories(littlelionman PUBLIC ${OPENGL_INCLUDE_DIR})
+target_include_directories(amazonia PUBLIC ${OPENGL_INCLUDE_DIR})
 
 # copy files into build
 configure_file(${TEXTURES_PATH}/brickTexture.jpg ${TARGET_TEXTURES}/brickTexture.jpg COPYONLY)
