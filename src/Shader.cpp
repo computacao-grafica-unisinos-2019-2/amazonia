@@ -21,6 +21,7 @@ void Shader::Compile(const GLchar* vertexSource, const GLchar* fragmentSource, c
     GLuint sVertex, sFragment, gShader;
     // Vertex Shader
     sVertex = glCreateShader(GL_VERTEX_SHADER);
+
     glShaderSource(sVertex, 1, &vertexSource, NULL);
     glCompileShader(sVertex);
     checkCompileErrors(sVertex, "VERTEX");

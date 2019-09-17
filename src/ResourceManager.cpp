@@ -53,8 +53,13 @@ void ResourceManager::Clear()
 
 Shader ResourceManager::loadShaderFromFile(const GLchar *vShaderFile, const GLchar *fShaderFile, const GLchar *gShaderFile)
 {
+
+    std::cout << vShaderFile << std::endl;
     // 1. Retrieve the vertex/fragment source code from filePath
     std::string vertexCode;
+
+
+
     std::string fragmentCode;
     std::string geometryCode;
     try

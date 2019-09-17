@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
     glfwWindowHint( GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE );
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-    GLFWwindow* window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Breakout", nullptr, nullptr);
+    GLFWwindow* window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Amazonia", nullptr, nullptr);
     glfwMakeContextCurrent(window);
 
     glewExperimental = GL_TRUE;
