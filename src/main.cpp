@@ -12,15 +12,18 @@
 
 #include "Game.h"
 #include "ResourceManager.h"
+#include <chrono>
+#include <stdio.h>
+#include <zconf.h>
 
 
 // GLFW function declerations
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
 // The Width of the screen
-const GLuint SCREEN_WIDTH = 960;
+static const GLuint SCREEN_WIDTH = 960;
 // The height of the screen
-const GLuint SCREEN_HEIGHT = 540;
+static const GLuint SCREEN_HEIGHT = 540;
 
 Game Breakout(SCREEN_WIDTH, SCREEN_HEIGHT);
 
@@ -66,7 +69,7 @@ int main(int argc, char *argv[])
         lastFrame = currentFrame;
         glfwPollEvents();
 
-        //deltaTime = 0.001f;
+        deltaTime = 0.0004f;
         // Manage user input
         Breakout.ProcessInput(deltaTime);
 

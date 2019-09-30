@@ -39,6 +39,7 @@ public:
     void ProcessInput(GLfloat dt);
     void Update(GLfloat dt);
     void Render();
+    void ProcessNPC(GLfloat dt);
 };
 
 #endif

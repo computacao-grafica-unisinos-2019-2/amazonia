@@ -8,7 +8,7 @@ set(TARGET_RESOURCES_PATH "${CMAKE_BINARY_DIR}/resources")
 set(TARGET_SHADERS "${TARGET_RESOURCES_PATH}/shaders")
 set(TARGET_TEXTURES "${TARGET_RESOURCES_PATH}/textures")
 
-add_executable(amazonia ${CMAKE_SOURCE_DIR}/src/main.cpp src/Game.h src/Game.cpp src/main.cpp src/Shader.cpp src/Shader.h src/Texture2D.cpp src/Texture2D.h src/ResourceManager.cpp src/ResourceManager.h src/SpriteRenderer.cpp src/SpriteRenderer.h src/GameObject.cpp src/GameObject.h)
+add_executable(amazonia ${CMAKE_SOURCE_DIR}/src/main.cpp src/Game.h src/Game.cpp src/main.cpp src/Shader.cpp src/Shader.h src/Texture2D.cpp src/Texture2D.h src/ResourceManager.cpp src/ResourceManager.h src/SpriteRenderer.cpp src/SpriteRenderer.h src/GameObject.cpp src/GameObject.h src/GameConfig.cpp src/GameConfig.cpp)
 
 # Including OS include paths. Idk why this is required, but it is.
 include_directories("/usr/local/include")
@@ -46,6 +46,9 @@ target_include_directories(amazonia PUBLIC ${OPENGL_INCLUDE_DIR})
 # copy files into build
 configure_file(${TEXTURES_PATH}/background.png ${TARGET_TEXTURES}/background.png COPYONLY)
 configure_file(${TEXTURES_PATH}/sprites/elf.png ${TARGET_TEXTURES}/sprites/elf.png COPYONLY)
+configure_file(${TEXTURES_PATH}/sprites/orc.png ${TARGET_TEXTURES}/sprites/orc.png COPYONLY)
+configure_file(${TEXTURES_PATH}/sprites/run.png ${TARGET_TEXTURES}/sprites/run.png COPYONLY)
+
 
 configure_file(${SHADERS_PATH}/core/core.frag ${TARGET_SHADERS}/core/core.frag COPYONLY)
 configure_file(${SHADERS_PATH}/core/core.vert ${TARGET_SHADERS}/core/core.vert COPYONLY)

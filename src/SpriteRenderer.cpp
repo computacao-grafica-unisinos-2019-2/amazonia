@@ -7,7 +7,7 @@
 ** option) any later version.
 ******************************************************************/
 #include "SpriteRenderer.h"
-
+#include "GameObject.h"
 
 SpriteRenderer::SpriteRenderer(Shader &shader)
 {
@@ -20,7 +20,7 @@ SpriteRenderer::~SpriteRenderer()
     glDeleteVertexArrays(1, &this->quadVAO);
 }
 
-void SpriteRenderer::DrawSprite(Texture2D &texture, glm::vec2 position, glm::vec2 size, GLfloat rotate, glm::vec3 color)
+void SpriteRenderer::DrawSprite(Texture2D &texture2D, glm::vec2 position, glm::vec2 size, GLfloat rotate, glm::vec3 color, GLfloat offsetx, GLfloat offsety, GLfloat framewidht)
 {
     // Prepare transformations
     this->shader.Use();
@@ -37,9 +37,13 @@ void SpriteRenderer::DrawSprite(Texture2D &texture, glm::vec2 position, glm::vec
 
     // Render textured quad
     this->shader.SetVector3f("spriteColor", color);
+    this->shader.SetFloat("offsetx", offsetx);
+    this->shader.SetFloat("offsety", offsety);
+    this->shader.SetFloat("framewidht", framewidht);
 
     glActiveTexture(GL_TEXTURE0);
-    texture.Bind();
+
+    texture2D.Bind();
 
     glBindVertexArray(this->quadVAO);
     glDrawArrays(GL_TRIANGLES, 0, 6);

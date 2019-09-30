@@ -15,6 +15,11 @@
 #include "Texture2D.h"
 #include "SpriteRenderer.h"
 
+enum SpriteAction
+{
+    RUN,
+    ATTACK
+};
 
 // Container object for holding all state relevant for a single
 // game object entity. Each object in the game likely needs the
@@ -28,13 +33,36 @@ public:
     GLfloat     Rotation;
     GLboolean   IsSolid;
     GLboolean   Destroyed;
+    GLfloat     velocity = 400.0f;
     // Render state
     Texture2D   Sprite;
+
+    GLint Frames;
+    GLint CurrentFrame;
+    GLfloat offsetx;
+    GLfloat offsety;
+    GLfloat framewidht;
+    SpriteAction CurrentAction;
+
+    void Attack();
+    void NextFrame();
+    void MoveRight  (GLfloat dt);
+    void MoveLeft   (GLfloat dt);
+    void MoveUp     (GLfloat dt);
+    void MoveDown   (GLfloat dt);
+    void ScaleUp    (GLfloat dt);
+    void ScaleDown  (GLfloat dt);
+
+    void ProcessFrame();
+
+
     // Constructor(s)
     GameObject();
-    GameObject(glm::vec2 pos, glm::vec2 size, Texture2D sprite, glm::vec3 color = glm::vec3(1.0f), glm::vec2 velocity = glm::vec2(0.0f, 0.0f));
+    GameObject(glm::vec2 pos, glm::vec2 size, Texture2D sprite, GLint Frames = 1, glm::vec3 color = glm::vec3(1.0f), glm::vec2 velocity = glm::vec2(0.0f, 0.0f));
+
     // Draw sprite
     virtual void Draw(SpriteRenderer &renderer);
+
 };
 
 #endif
