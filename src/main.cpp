@@ -15,15 +15,17 @@
 #include <chrono>
 #include <stdio.h>
 #include <zconf.h>
+#include "GameConfig.cpp"
+
 
 
 // GLFW function declerations
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
 // The Width of the screen
-static const GLuint SCREEN_WIDTH = 960;
+static const GLuint SCREEN_WIDTH = GameConfig::SCREEN_WIDTH;
 // The height of the screen
-static const GLuint SCREEN_HEIGHT = 540;
+static const GLuint SCREEN_HEIGHT = GameConfig::SCREEN_HEIGHT;
 
 Game Breakout(SCREEN_WIDTH, SCREEN_HEIGHT);
 
@@ -48,7 +50,12 @@ int main(int argc, char *argv[])
     // OpenGL configuration
     glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     glEnable(GL_CULL_FACE);
-    glEnable(GL_BLEND);
+
+    glEnable(GL_DEPTH_TEST);
+    glDepthMask(GL_TRUE);
+    glDepthFunc(GL_LEQUAL);
+    glDepthRange(0.0f, 1.0f);
+
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     // Initialize game
@@ -69,16 +76,18 @@ int main(int argc, char *argv[])
         lastFrame = currentFrame;
         glfwPollEvents();
 
-        deltaTime = 0.0004f;
+        deltaTime = 0.1f;
         // Manage user input
-        Breakout.ProcessInput(deltaTime);
+        //Breakout.ProcessInput(deltaTime);
 
         // Update Game state
         Breakout.Update(deltaTime);
 
         // Render
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClearDepth(1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glEnable(GL_DEPTH_TEST);
         Breakout.Render();
 
         glfwSwapBuffers(window);
@@ -100,7 +109,10 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     {
         if (action == GLFW_PRESS)
             Breakout.Keys[key] = GL_TRUE;
-        else if (action == GLFW_RELEASE)
+        else
             Breakout.Keys[key] = GL_FALSE;
     }
+
+    Breakout.ProcessInput(0.1f);
+
 }

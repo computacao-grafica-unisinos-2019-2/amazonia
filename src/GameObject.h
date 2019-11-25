@@ -14,6 +14,8 @@
 
 #include "Texture2D.h"
 #include "SpriteRenderer.h"
+#include "TileMap.cpp"
+
 
 enum SpriteAction
 {
@@ -28,8 +30,8 @@ class GameObject
 {
 public:
     // Object state
-    glm::vec2   Position, Size, Velocity;
-    glm::vec3   Color;
+    glm::vec2   Size, Velocity;
+    glm::vec3   Color, Position;
     GLfloat     Rotation;
     GLboolean   IsSolid;
     GLboolean   Destroyed;
@@ -39,17 +41,24 @@ public:
 
     GLint Frames;
     GLint CurrentFrame;
+    int Vida;
+    int row;
+    int column;
     GLfloat offsetx;
     GLfloat offsety;
+
+    int matrixOffsetX;
+    int matrixOffsetY;
+
     GLfloat framewidht;
     SpriteAction CurrentAction;
 
     void Attack();
     void NextFrame();
-    void MoveRight  (GLfloat dt);
-    void MoveLeft   (GLfloat dt);
-    void MoveUp     (GLfloat dt);
-    void MoveDown   (GLfloat dt);
+    void MoveLeft(GLfloat dt, TileMap *tileMap);
+    void MoveRight(GLfloat dt, TileMap *tileMap);
+    void MoveUp(GLfloat dt, TileMap *tileMap);
+    void MoveDown(GLfloat dt, TileMap *tileMap);
     void ScaleUp    (GLfloat dt);
     void ScaleDown  (GLfloat dt);
 
@@ -58,11 +67,14 @@ public:
 
     // Constructor(s)
     GameObject();
-    GameObject(glm::vec2 pos, glm::vec2 size, Texture2D sprite, GLint Frames = 1, glm::vec3 color = glm::vec3(1.0f), glm::vec2 velocity = glm::vec2(0.0f, 0.0f));
+    GameObject(glm::vec3 pos, glm::vec2 size, Texture2D sprite, GLint Frames = 1, glm::vec3 color = glm::vec3(1.0f), glm::vec2 velocity = glm::vec2(0.0f, 0.0f));
 
     // Draw sprite
     virtual void Draw(SpriteRenderer &renderer);
 
+    void updatePositionBasedOnMatrix();
+
+    bool CheckIfValid(int column, int row, TileMap *tileMap);
 };
 
 #endif

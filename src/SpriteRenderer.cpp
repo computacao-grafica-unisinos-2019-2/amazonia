@@ -6,6 +6,7 @@
 ** Creative Commons, either version 4 of the License, or (at your
 ** option) any later version.
 ******************************************************************/
+#include <iostream>
 #include "SpriteRenderer.h"
 #include "GameObject.h"
 
@@ -20,12 +21,13 @@ SpriteRenderer::~SpriteRenderer()
     glDeleteVertexArrays(1, &this->quadVAO);
 }
 
-void SpriteRenderer::DrawSprite(Texture2D &texture2D, glm::vec2 position, glm::vec2 size, GLfloat rotate, glm::vec3 color, GLfloat offsetx, GLfloat offsety, GLfloat framewidht)
+void SpriteRenderer::DrawSprite(Texture2D &texture2D, glm::vec3 position, glm::vec2 size, GLfloat rotate, glm::vec3 color, GLfloat offsetx, GLfloat offsety, GLfloat framewidht, GLfloat frameheight)
 {
+   // position.x = position.x;
     // Prepare transformations
     this->shader.Use();
     glm::mat4 model = glm::mat4(1.0);
-    model = glm::translate(model, glm::vec3(position, 0.0f));  // First translate (transformations are: scale happens first, then rotation and then finall translation happens; reversed order)
+    model = glm::translate(model, position);  // First translate (transformations are: scale happens first, then rotation and then finall translation happens; reversed order)
 
     model = glm::translate(model, glm::vec3(0.5f * size.x, 0.5f * size.y, 0.0f)); // Move origin of rotation to center of quad
     model = glm::rotate(model, rotate, glm::vec3(0.0f, 0.0f, 1.0f)); // Then rotate
@@ -40,6 +42,7 @@ void SpriteRenderer::DrawSprite(Texture2D &texture2D, glm::vec2 position, glm::v
     this->shader.SetFloat("offsetx", offsetx);
     this->shader.SetFloat("offsety", offsety);
     this->shader.SetFloat("framewidht", framewidht);
+    this->shader.SetFloat("frameheight", frameheight);
 
     glActiveTexture(GL_TEXTURE0);
 
@@ -64,6 +67,7 @@ void SpriteRenderer::initRenderData()
             1.0f, 1.0f, 1.0f, 1.0f,
             1.0f, 0.0f, 1.0f, 0.0f
     };
+
 
     glGenVertexArrays(1, &this->quadVAO);
     glGenBuffers(1, &VBO);

@@ -11,6 +11,7 @@
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include "GameObject.h"
 
 
 // Represents the current state of the game
@@ -40,6 +41,14 @@ public:
     void Update(GLfloat dt);
     void Render();
     void ProcessNPC(GLfloat dt);
+
+    bool CheckCollision(GameObject object, GameObject object1);
+
+    void drawTiles();
+
+    void interact();
+
+    void renderTools();
 };
 
 #endif

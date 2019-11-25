@@ -24,7 +24,7 @@ public:
     // Destructor
     ~SpriteRenderer();
     // Renders a defined quad textured with given sprite
-    void DrawSprite(Texture2D &sprite, glm::vec2 position, glm::vec2 size = glm::vec2(10, 10), GLfloat rotate = 0.0f, glm::vec3 color = glm::vec3(1.0f), GLfloat offsetx = 0.0f, GLfloat offsety = 0.0f, GLfloat framewidht = 1.0f);
+    void DrawSprite(Texture2D &sprite, glm::vec3 position, glm::vec2 size = glm::vec2(10, 10), GLfloat rotate = 0.0f, glm::vec3 color = glm::vec3(1.0f), GLfloat offsetx = 0.0f, GLfloat offsety = 0.0f, GLfloat framewidht = 1.0f, GLfloat frameheight = 1.0f);
 private:
     // Render state
     Shader shader;
